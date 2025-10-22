@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Age Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #f0f0f0;
+  }
+
+  .container {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 350px;
+    text-align: center;
+  }
+
+  h2 {
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  input, button {
+    width: 90%;
+    padding: 8px;
+    margin: 8px 0;
+    font-size: 14px;
+  }
+
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  #result {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+  }
+
+  #result p {
+    margin: 5px 0;
+  }
+</style>
+
+</head>
+<body>
+  <div class="container">
+    <h2>Advanced Age Calculator</h2>
+    <input type="text" id="name" placeholder="Enter your name">
+    <input type="date" id="dob">
+    <br>
+    <button onclick="calculateAge()">Calculate Age</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateAge() {
+      let name=document.getElementById("name").value;
+      let dob=document.getElementById("dob").value;
+      let resultDiv=document.getElementById("result");
+
+
+      let dobDate=new Date(dob);
+      console.log(dobDate);
+      
+      let today=new Date();
+
+    
+      let years=today.getFullYear()-dobDate.getFullYear();
+      let months=today.getMonth()-dobDate.getMonth();
+      let days=today.getDate()-dobDate.getDate();
+
+      let daysOfWeek=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+      let birthDay=daysOfWeek[dobDate.getDay()];
+
+      let nextBirthday=new Date(today.getFullYear(),dobDate.getMonth(),dobDate.getDate());
+      if (nextBirthday<today) {
+        nextBirthday.setFullYear(today.getFullYear()+1);
+      }
+      let diffTime=nextBirthday-today;
+      let diffDays=Math.ceil(diffTime/(1000*60*60*24));
+
+      resultDiv.innerHTML=`
+        <p><b>Hello ${name}!</b></p>
+        <p> You are <b>${years} years, ${months} months, ${days} days</b> old.</p>
+        <p> You were born on a <b>${birthDay}</b>.</p>
+        <p> Your next birthday is in <b>${diffDays} days</b>.</p>`;
+    }
+  </script>
+</body>
+</html>
